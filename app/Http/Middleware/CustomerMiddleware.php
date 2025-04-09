@@ -17,7 +17,6 @@ class CustomerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // Contoh logika untuk memeriksa apakah pengguna adalah customer
         if (auth()->check() && auth()->user()->role === 'customer') {
             return $next($request);
         }

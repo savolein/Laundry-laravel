@@ -5,13 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Service;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::all();
-        return view('customer.index', compact('customers'));
+        $services = Service::all(); // Ambil semua layanan dari database
+        return view('customer.customer', compact('services'));
+    }
+
+    public function reservationForm()
+    {
+        return view('customer.reservation');
+    }
+
+    public function laundryTypes()
+    {
+        $services = [
+            ['type' => 'Reguler', 'price' => 6000, 'description' => 'Layanan laundry reguler dengan harga Rp 6.000 per kg.'],
+            ['type' => 'Express', 'price' => 10000, 'description' => 'Layanan laundry express dengan harga Rp 10.000 per kg.'],
+            ['type' => 'VIP', 'price' => 20000, 'description' => 'Layanan laundry VIP dengan harga Rp 20.000 per kg.'],
+        ];
+        
+        return view('customer.laundry-types', compact('services'));
     }
 
     public function create()
